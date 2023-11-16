@@ -1,0 +1,1 @@
+Research of built in function - "any_of".
