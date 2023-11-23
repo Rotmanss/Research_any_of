@@ -12,16 +12,16 @@ int main()
 {
     setlocale(LC_ALL, "ukrainian");
 
-    std::vector<int> data = { 1, 3, 5, 7, 2, 9 };
-    std::cout << "Данi : { 1, 3, 5, 7, 2, 9 }" << std::endl;
-    std::cout << "Предикат : x % 2 == 0" << std::endl;
+    std::vector<int> data = { 1, 3, 5, 7, 2, 9, 1, 3, 5, 7, 2, 9, 1, 3, 5, 7, 2, 9, 1, 3, 5, 7, 2, 9, 1, 3, 5, 7, 2, 9, 1, 3, 5, 7 };
+    std::cout << "Данi : { 1, 3, 5, 7, 2, 9, 1, 3, 5, 7, 2, 9, 1, 3, 5, 7, 2, 9, 1, 3, 5, 7, 2, 9, 1, 3, 5, 7, 2, 9, 1, 3, 5, 7 }" << std::endl;
+    std::cout << "Предикат : x % 2 == 0\n" << std::endl;
     
     NoPolicy np(data);
-    std::cout << "Час роботи бiблiотечного алгоритму без полiтики" << np.GetDuration() << " мкс" << std::endl;
+    std::cout << "Час роботи бiблiотечного алгоритму без полiтики " << np.GetDuration() << " мкс" << std::endl;
 
     WithPolicy wp(data);
-    std::cout << "Час роботи бiблiотечного алгоритму з полiтикою seq" << wp.GetDurationParallel() << " мкс" << std::endl;
-    std::cout << "Час роботи бiблiотечного алгоритму з полiтикою par" << wp.GetDurationSequenced() << " мкс" << std::endl;
+    std::cout << "Час роботи бiблiотечного алгоритму з полiтикою seq " << wp.GetDurationParallel() << " мкс" << std::endl;
+    std::cout << "Час роботи бiблiотечного алгоритму з полiтикою par " << wp.GetDurationSequenced() << " мкс\n" << std::endl;
 
     ParallelAlgorithm pa;
     
@@ -46,7 +46,7 @@ int main()
             return lhs.second < rhs.second;
         });
 
-    std::cout << "Найкраща швидкiсть була досягнута з : " << minDuration->first << " потокiв: " << minDuration->second << " мкс" << std::endl;
+    std::cout << "\nНайкраща швидкiсть була досягнута з : " << minDuration->first << " потокiв: " << minDuration->second << " мкс" << std::endl;
 
     return 0;
 }
