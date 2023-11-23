@@ -1,16 +1,17 @@
+#pragma once
+
 #include <thread>
 #include <numeric>
+#include <algorithm>
+#include <vector>
 
 class ParallelAlgorithm
 {
 public:
-	ParallelAlgorithm() 
+	ParallelAlgorithm()
 	{
 	};
 
-	template <typename Iterator, typename Predicate>
-	bool processSubrange(Iterator begin, Iterator end, Predicate pred);
-
-	template <typename Iterator, typename Predicate>
-	bool parallel_any_of(Iterator begin, Iterator end, Predicate pred, int num_threads);
+	bool processSubrange(std::vector<int>::iterator begin, std::vector<int>::iterator end, bool (*pred)(int x));
+	bool parallel_any_of(std::vector<int>& data, bool (*pred)(int x), int num_threads);
 };
