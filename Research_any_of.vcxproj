@@ -142,10 +142,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="application\Application.cpp" />
+    <ClCompile Include="application\CustomAlgorithm.cpp" />
     <ClCompile Include="application\NoPolicy.cpp" />
     <ClCompile Include="application\WithPolicy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="application\CustomAlgorithm.h" />
     <ClInclude Include="application\NoPolicy.h" />
     <ClInclude Include="application\WithPolicy.h" />
   </ItemGroup>

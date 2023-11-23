@@ -24,12 +24,18 @@
     <ClCompile Include="application\WithPolicy.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="application\CustomAlgorithm.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\NoPolicy.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="application\WithPolicy.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="application\CustomAlgorithm.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
