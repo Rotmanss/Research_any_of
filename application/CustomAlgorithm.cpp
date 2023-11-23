@@ -1,63 +1,30 @@
-//#include "CustomAlgorithm.h"
-//
-//
-//std::vector<std::vector<int>> CustomAlgorithm::splitVector(int k) const
-//{
-//    std::vector<std::vector<int>> result;
-//
-//    size_t sizeOfSubvector = data.size() / k;
-//
-//    size_t remainder = data.size() % k;
-//
-//    auto it = data.begin();
-//
-//    for (int i = 0; i < k; ++i) {
-//        size_t currentSize = sizeOfSubvector + (i < remainder ? 1 : 0);
-//
-//        std::vector<int> subvector(it, it + currentSize);
-//
-//        it += currentSize;
-//
-//        result.push_back(subvector);
-//    }
-//
-//    return result;
-//}
-//
-//void CustomAlgorithm::launchThreadProcess(int threadId, std::vector<int> data)
-//{
-//    std::osyncstream(std::cout) << "Thread " << threadId << " is in process." << std::endl;
-//    /*result = std::any_of(std::execution::seq, data.begin(), data.end(), [](int x)
-//        {
-//            return x % 2 == 0;
-//        });*/
-//    sem.release();
-//}
-//
-//std::chrono::microseconds::rep CustomAlgorithm::GetDuration(int k) const
-//{
-//    auto start_time = std::chrono::high_resolution_clock::now();
-//
-//    std::vector<std::vector<int>> splitData = splitVector(k);
-//
-//    for (int i = 0; i < k; ++i)
-//    {
-//        threads.emplace_back([&]()
-//            {
-//                launchThreadProcess(i, splitData[i]);
-//                
-//
-//            });
-//    }
-//
-//    for (int i = 0; i < k; ++i)
-//    {
-//        sem.acquire();
-//    }
-//
-//    auto end_time = std::chrono::high_resolution_clock::now();
-//    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-//    std::cout << "All threads done" << std::endl;
-//
-//    return duration.count();
-//}
+#include "CustomAlgorithm.h"
+
+template <typename Iterator, typename Predicate>
+bool ParallelAlgorithm::processSubrange(Iterator begin, Iterator end, Predicate pred) {
+    return std::any_of(begin, end, pred);
+}
+
+template <typename Iterator, typename Predicate>
+bool ParallelAlgorithm::parallel_any_of(Iterator begin, Iterator end, Predicate pred, int num_threads) {
+    const size_t size = std::distance(begin, end);
+    const size_t chunk_size = size / num_threads;
+
+    std::vector<std::thread> threads;
+    std::vector<bool> results(num_threads);
+
+    for (int i = 0; i < num_threads; ++i) {
+        Iterator subrange_begin = begin + i * chunk_size;
+        Iterator subrange_end = (i == num_threads - 1) ? end : subrange_begin + chunk_size;
+
+        threads.emplace_back([subrange_begin, subrange_end, &pred, &results, i]() {
+            results[i] = processSubrange(subrange_begin, subrange_end, pred);
+            });
+    }
+
+    for (auto& thread : threads) {
+        thread.join();
+    }
+
+    return std::any_of(results.begin(), results.end(), [](bool result) { return result; });
+}
