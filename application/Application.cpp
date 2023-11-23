@@ -17,5 +17,7 @@ int main()
     std::cout << "Час роботи бiблiотечного алгоритму з полiтикою seq: " << wp.GetDurationParallel() << " мкс" << std::endl;
     std::cout << "Час роботи бiблiотечного алгоритму з полiтикою par: " << wp.GetDurationSequenced() << " мкс" << std::endl;
 
+    
+
     return 0;
 }
